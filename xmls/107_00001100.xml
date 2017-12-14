@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<annotation>
+	<folder>VideoData</folder>
+	<source>
+		<database>Video Data</database>
+		<annotation>PASCAL 2012</annotation>
+	</source>
+	<owner>
+		<name>samuel</name>
+	</owner>
+	<size>
+		<width>1920</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>person</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<occluded>0</occluded>
+		<confidence>1</confidence>
+		<bndbox>
+			<xmin>92</xmin>
+			<ymin>27</ymin>
+			<xmax>254</xmax>
+			<ymax>151</ymax>
+		</bndbox>
+		<keypoints>
+			<cent_x>121.818181818</cent_x>
+			<cent_y>58.1818181818</cent_y>
+			<left_shoulder_x>220.0</left_shoulder_x>
+			<left_shoulder_y>49.0909090909</left_shoulder_y>
+			<right_shoulder_x>187.272727273</right_shoulder_x>
+			<right_shoulder_y>134.545454545</right_shoulder_y>
+			<neck_x>181.818181818</neck_x>
+			<neck_y>89.0909090909</neck_y>
+		</keypoints>
+	</object>
+</annotation>

@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<annotation>
+	<folder>VideoData</folder>
+	<source>
+		<database>Video Data</database>
+		<annotation>PASCAL 2012</annotation>
+	</source>
+	<owner>
+		<name>samuel</name>
+	</owner>
+	<size>
+		<width>1920</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>person</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<occluded>0</occluded>
+		<confidence>1</confidence>
+		<bndbox>
+			<xmin>1665</xmin>
+			<ymin>151</ymin>
+			<xmax>1911</xmax>
+			<ymax>415</ymax>
+		</bndbox>
+		<keypoints>
+			<cent_x>1790.0</cent_x>
+			<cent_y>257.142857143</cent_y>
+			<left_shoulder_x>1768.57142857</left_shoulder_x>
+			<left_shoulder_y>391.428571429</left_shoulder_y>
+			<right_shoulder_x>1688.57142857</right_shoulder_x>
+			<right_shoulder_y>180.0</right_shoulder_y>
+			<neck_x>-1.0</neck_x>
+			<neck_y>-1.0</neck_y>
+		</keypoints>
+	</object>
+	<object>
+		<name>person</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<occluded>0</occluded>
+		<confidence>1</confidence>
+		<bndbox>
+			<xmin>1287</xmin>
+			<ymin>901</ymin>
+			<xmax>1641</xmax>
+			<ymax>1078</ymax>
+		</bndbox>
+		<keypoints>
+			<cent_x>1488.57142857</cent_x>
+			<cent_y>961.428571429</cent_y>
+			<left_shoulder_x>1345.71428571</left_shoulder_x>
+			<left_shoulder_y>1058.57142857</left_shoulder_y>
+			<right_shoulder_x>1604.28571429</right_shoulder_x>
+			<right_shoulder_y>960.0</right_shoulder_y>
+			<neck_x>1498.57142857</neck_x>
+			<neck_y>1038.57142857</neck_y>
+		</keypoints>
+	</object>
+</annotation>
