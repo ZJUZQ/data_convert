@@ -28,13 +28,14 @@ def xml2dict(xmlstring, anno_list):
 	xml_dict['segmented'] = float(root.find('segmented').text)
 	xml_dict['isValidation'] = 0.0
 	xml_dict['dataset'] = 'Undef'
-	xml_dict['numOtherPeople'] = len(root.findall('object')) - 1
+	#xml_dict['numOtherPeople'] = len(root.findall('object')) - 1
 
 	global annolist_index
 	annolist_index = annolist_index + 1.0
 	xml_dict['annolist_index'] = annolist_index
 
 	people_index = 0.0
+	usedPeopleNum = 0
 	obj_dict_list = [] # store all obj_dicts in one image 
 	for obj in root.findall('object'):
 		obj_dict = copy.deepcopy(xml_dict)
@@ -57,12 +58,37 @@ def xml2dict(xmlstring, anno_list):
 		obj_dict['objpos'].append( (float(obj.find('bndbox').find('ymax').text) + float(obj.find('bndbox').find('ymin').text))/2.0 )
 
 		obj_dict['num_keypoints'] = 4
+		head_x = float(obj.find('keypoints').find('cent_x').text)
+		head_y = float(obj.find('keypoints').find('cent_y').text)
+		Lsho_x = float(obj.find('keypoints').find('left_shoulder_x').text)
+		Lsho_y = float(obj.find('keypoints').find('left_shoulder_y').text)
+		Rsho_x = float(obj.find('keypoints').find('right_shoulder_x').text)
+		Rsho_y = float(obj.find('keypoints').find('right_shoulder_y').text)
+		neck_x = float(obj.find('keypoints').find('neck_x').text)
+		neck_y = float(obj.find('keypoints').find('neck_y').text)
+		if(neck_x <= 0 or neck_y <= 0): # not labeled
+			if(Lsho_x <= 0 or Lsho_y <= 0 or Rsho_x <= 0 or Rsho_y <= 0):
+				continue # because neck is important, if neck cannot be calculated, then do not use this person
+			neck_x = (Lsho_x + Rsho_x) / 2.0 
+			neck_y = (Lsho_y + Rsho_y) / 2.0 
+
 		obj_dict['joint_self'] = []
+		obj_dict['joint_self'].append([head_x, head_y, int(head_x >= 0 and head_y >= 0)]) # [x y v] here, v=1 means visiable
+		obj_dict['joint_self'].append([Lsho_x, Lsho_y, int(Lsho_x >= 0 and Lsho_y >= 0)])
+		obj_dict['joint_self'].append([Rsho_x, Rsho_y, int(Rsho_x >= 0 and Rsho_y >= 0)])
+		obj_dict['joint_self'].append([neck_x, neck_y, int(neck_x >= 0 and neck_y >= 0)])
+
+
+		"""
 		if obj_dict['numOtherPeople'] > 1:
 			obj_dict['joint_others'] = []
 			obj_dict['objpos_other'] = []
 			obj_dict['scale_provided_other'] = []
+		"""
+
+
 		obj_dict['scale_provided'] = 1.0 # no provided, here is a default value
+		"""
 		keypoint = []
 		for child in obj.find('keypoints'):
 			keypoint.append( float(child.text) )
@@ -71,12 +97,21 @@ def xml2dict(xmlstring, anno_list):
 				keypoint.append(1) # visiable flag
 				obj_dict['joint_self'].append(copy.deepcopy(keypoint))
 				keypoint = []
+		"""
 
 		#anno_list.append( copy.deepcopy(obj_dict) )
 		obj_dict_list.append( copy.deepcopy(obj_dict) )
+		usedPeopleNum = usedPeopleNum + 1
 		obj_dict.clear()
 
 	for i in range( len(obj_dict_list) ):
+		obj_dict_list[i]['numOtherPeople'] = usedPeopleNum - 1
+		if usedPeopleNum - 1 > 1:
+			obj_dict_list[i]['joint_others'] = []
+			obj_dict_list[i]['objpos_other'] = []
+			obj_dict_list[i]['scale_provided_other'] = []
+
+	for i in range( len(obj_dict_list) ):		
 		for j in range( len(obj_dict_list) ):
 			if j != i:
 				if obj_dict_list[i]['numOtherPeople'] > 1:
